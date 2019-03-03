@@ -7,16 +7,20 @@
 
 var indexSectionsWithContent =
 {
-  0: "defilm",
-  1: "defilm",
-  2: "m"
+  0: "_defghilmptv",
+  1: "defilmp",
+  2: "_dghp",
+  3: "dtv",
+  4: "m"
 };
 
 var indexSectionNames =
 {
   0: "all",
   1: "classes",
-  2: "pages"
+  2: "functions",
+  3: "variables",
+  4: "pages"
 };
 
 function convertToId(search)

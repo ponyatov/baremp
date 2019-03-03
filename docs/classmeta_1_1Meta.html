@@ -21,7 +21,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="triangle.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="ouroboros.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">bareMP
    </div>
@@ -63,6 +63,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
       <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -70,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -85,6 +86,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="classmeta_1_1Meta-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">meta.Meta Class Reference</div>  </div>
 </div><!--header-->
@@ -97,8 +102,48 @@ Inheritance diagram for meta.Meta:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmeta_1_1Meta__inherit__graph.png" border="0" usemap="#meta_8Meta_inherit__map" alt="Inheritance graph"/></div>
 <map name="meta_8Meta_inherit__map" id="meta_8Meta_inherit__map">
-<area shape="rect" id="node2" href="classmeta_1_1IO.html" title="input/output " alt="" coords="105,80,175,107"/><area shape="rect" id="node5" href="classmeta_1_1Lang.html" title="programming language " alt="" coords="200,80,283,107"/><area shape="rect" id="node3" href="classmeta_1_1Dir.html" title="directory " alt="" coords="5,155,77,181"/><area shape="rect" id="node4" href="classmeta_1_1File.html" title="file " alt="" coords="102,155,178,181"/><area shape="rect" id="node6" href="classmeta_1_1emC.html" title="embedded C language elements " alt="" coords="203,155,285,181"/></map>
+<area shape="rect" id="node2" href="classmeta_1_1IO.html" title="input/output " alt="" coords="105,80,175,107"/><area shape="rect" id="node5" href="classmeta_1_1Lang.html" title="programming language " alt="" coords="200,80,283,107"/><area shape="rect" id="node7" href="classmeta_1_1Project.html" title="sw/project " alt="" coords="307,80,403,107"/><area shape="rect" id="node3" href="classmeta_1_1Dir.html" title="directory " alt="" coords="5,155,77,181"/><area shape="rect" id="node4" href="classmeta_1_1File.html" title="file " alt="" coords="102,155,178,181"/><area shape="rect" id="node6" href="classmeta_1_1emC.html" title="embedded C language elements " alt="" coords="203,155,285,181"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aeddd535d612a7d2bf2c16cdba56ec60b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeddd535d612a7d2bf2c16cdba56ec60b"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmeta_1_1Meta.html#aeddd535d612a7d2bf2c16cdba56ec60b">__init__</a></td></tr>
+<tr class="memdesc:aeddd535d612a7d2bf2c16cdba56ec60b"><td class="mdescLeft">&#160;</td><td class="mdescRight">construct meta object with given name <br /></td></tr>
+<tr class="separator:aeddd535d612a7d2bf2c16cdba56ec60b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">dump objects</div></td></tr>
+<tr class="memitem:ae5f7cd9515948aa4e5a7129ca54b1d7e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae5f7cd9515948aa4e5a7129ca54b1d7e"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmeta_1_1Meta.html#ae5f7cd9515948aa4e5a7129ca54b1d7e">__repr__</a></td></tr>
+<tr class="memdesc:ae5f7cd9515948aa4e5a7129ca54b1d7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">dump object <br /></td></tr>
+<tr class="separator:ae5f7cd9515948aa4e5a7129ca54b1d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab357b3d9454d962bebfe74de4f835fea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab357b3d9454d962bebfe74de4f835fea"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmeta_1_1Meta.html#ab357b3d9454d962bebfe74de4f835fea">dump</a></td></tr>
+<tr class="memdesc:ab357b3d9454d962bebfe74de4f835fea"><td class="mdescLeft">&#160;</td><td class="mdescRight">dump object in tree format <br /></td></tr>
+<tr class="separator:ab357b3d9454d962bebfe74de4f835fea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a157a0c6ea3bcd436d2bbd672e0fde4f1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a157a0c6ea3bcd436d2bbd672e0fde4f1"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmeta_1_1Meta.html#a157a0c6ea3bcd436d2bbd672e0fde4f1">head</a></td></tr>
+<tr class="memdesc:a157a0c6ea3bcd436d2bbd672e0fde4f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">short dump: header only <br /></td></tr>
+<tr class="separator:a157a0c6ea3bcd436d2bbd672e0fde4f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0a21980b1d783d61023fcfcea401aca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa0a21980b1d783d61023fcfcea401aca"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmeta_1_1Meta.html#aa0a21980b1d783d61023fcfcea401aca">pad</a></td></tr>
+<tr class="memdesc:aa0a21980b1d783d61023fcfcea401aca"><td class="mdescLeft">&#160;</td><td class="mdescRight">tabulate dump <br /></td></tr>
+<tr class="separator:aa0a21980b1d783d61023fcfcea401aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a862b27cbb64cd1e593d1adb670d0a786"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a862b27cbb64cd1e593d1adb670d0a786"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmeta_1_1Meta.html#a862b27cbb64cd1e593d1adb670d0a786">gen</a></td></tr>
+<tr class="memdesc:a862b27cbb64cd1e593d1adb670d0a786"><td class="mdescLeft">&#160;</td><td class="mdescRight">generate source code <br /></td></tr>
+<tr class="separator:a862b27cbb64cd1e593d1adb670d0a786"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ae30d0b3c6b4b1a452927f67934e56845"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae30d0b3c6b4b1a452927f67934e56845"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmeta_1_1Meta.html#ae30d0b3c6b4b1a452927f67934e56845">type</a></td></tr>
+<tr class="memdesc:ae30d0b3c6b4b1a452927f67934e56845"><td class="mdescLeft">&#160;</td><td class="mdescRight">type/class tag <br /></td></tr>
+<tr class="separator:ae30d0b3c6b4b1a452927f67934e56845"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02304e238d13ce55df43c5f7a979845f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02304e238d13ce55df43c5f7a979845f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmeta_1_1Meta.html#a02304e238d13ce55df43c5f7a979845f">value</a></td></tr>
+<tr class="memdesc:a02304e238d13ce55df43c5f7a979845f"><td class="mdescLeft">&#160;</td><td class="mdescRight">atomic value (implementation language type) <br /></td></tr>
+<tr class="separator:a02304e238d13ce55df43c5f7a979845f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>metaprogramming </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
@@ -107,7 +152,7 @@ Inheritance diagram for meta.Meta:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 3 2019 14:12:10 for bareMP by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Mar 3 2019 22:13:34 for bareMP by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
