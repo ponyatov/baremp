@@ -1,4 +1,7 @@
 <map id="meta.Meta" name="meta.Meta">
-<area shape="rect" id="node2" href="$classmeta_1_1Lang.html" title="meta.Lang" alt="" coords="6,80,89,107"/>
-<area shape="rect" id="node3" href="$classmeta_1_1emC.html" title="embedded C language elements " alt="" coords="6,155,89,181"/>
+<area shape="rect" id="node2" href="$classmeta_1_1IO.html" title="input/output " alt="" coords="105,80,175,107"/>
+<area shape="rect" id="node5" href="$classmeta_1_1Lang.html" title="programming language " alt="" coords="200,80,283,107"/>
+<area shape="rect" id="node3" href="$classmeta_1_1Dir.html" title="directory " alt="" coords="5,155,77,181"/>
+<area shape="rect" id="node4" href="$classmeta_1_1File.html" title="file " alt="" coords="102,155,178,181"/>
+<area shape="rect" id="node6" href="$classmeta_1_1emC.html" title="embedded C language elements " alt="" coords="203,155,285,181"/>
 </map>

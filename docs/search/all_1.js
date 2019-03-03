@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lang',['Lang',['../classmeta_1_1Lang.html',1,'meta']]]
+  ['emc',['emC',['../classmeta_1_1emC.html',1,'meta']]]
 ];
