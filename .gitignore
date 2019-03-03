@@ -1,0 +1,8 @@
+*~
+*.swp
+*.pyc
+*.o
+*.exe
+
+doxygen_sqlite3.db
+
