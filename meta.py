@@ -24,12 +24,17 @@ class Meta:
     ## tabulate dump
     def pad(self,N):
         return '\n'+'    '*N
+    
+    ## generate source code
+    def gen(self):
+        pass
 
 ## input/output
 class IO(Meta): pass
 
 ## directory
 class Dir(IO):
+    ## dump directory members
     def dump(self,depth=0):
         S = IO.dump(self,depth)
         S += self.mk.dump(depth+1)
@@ -37,9 +42,17 @@ class Dir(IO):
         S += self.c.dump(depth+1)
         S += self.h.dump(depth+1)
         return S
+    ## generate subelements
+    def gen(self):
+        try: os.mkdir(self.value)
+        except OSError: pass
+        self.mk.gen(self.value)
 
 ## file
-class File(IO): pass
+class File(IO):
+    ## produce file
+    def gen(self,path):
+        open(path+'/'+self.value,'w').close()
 
 ## programming language
 class Lang(Meta): pass
@@ -53,12 +66,17 @@ class Project(Meta):
     def __init__(self,name):
         assert re.match(r'^[a-zA-Z_][a-zA-Z_0-9]*$',name)
         Meta.__init__(self, name)
+        ## project directory
         self.dir = Dir(self.value)
         self.dir.mk  = File('Makefile')
         self.dir.git = File('.gitignore')
         self.dir.c   = File(self.value+'.c')
         self.dir.h   = File(self.value+'.h')
+    ## dump generic project structure
     def dump(self,depth=0):
         S = Meta.dump(self,depth)
         S += self.dir.dump(depth+1)
         return S
+    ## generate project elements
+    def gen(self):
+        self.dir.gen()

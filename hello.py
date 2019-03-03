@@ -1,3 +1,6 @@
 from meta import *
 
-print Project('hello')
+prj = Project('hello')
+# print prj
+
+prj.gen()
