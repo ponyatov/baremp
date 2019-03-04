@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['meta',['Meta',['../classmeta_1_1Meta.html',1,'meta']]],
-  ['metaprogramming',['metaprogramming',['../meta.html',1,'']]]
+  ['lang',['Lang',['../classmeta_1_1Lang.html',1,'meta']]]
 ];

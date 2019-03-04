@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['metaprogramming',['metaprogramming',['../meta.html',1,'']]]
+  ['baremp',['baremp',['../index.html',1,'']]]
 ];
