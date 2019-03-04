@@ -47,42 +47,11 @@ class Dir(IO):
         try: os.mkdir(self.value)
         except OSError: pass
         
-        self.mk.nest = '''
-        
-MODULE = $(notdir $(CURDIR))
-        
-$(MODULE).log: ./$(MODULE).exe
-\t./$< > $@ && tail $(TAIL) $@
-    
-C = $(MODULE).c
-H = $(MODULE).h
-
-./$(MODULE).exe: $(C) $(H)
-\t$(CC) -o $@ $(C)
-    
-'''.split('\n')
-        self.mk.gen(self.value)
-        
         self.git.nest += ['*~','*.swp','','*.o','*.exe','*.log','']
         self.git.gen(self.value)
         
-        self.c.nest = ( '''
-
-#include "%(module)s.h"
-
-int main(){}
-        
-''' % {'module':self.value} ).split('\n')
+        self.mk.gen(self.value)
         self.c.gen(self.value)
-        
-        self.h.nest = ( '''
-        
-#ifndef _H_%(module)s
-#define _H_%(module)s
-
-#endif // _H_%(module)s
-
-''' % {'module':self.value.upper()} ).split('\n')
         self.h.gen(self.value)
 
 ## file
@@ -98,6 +67,52 @@ class File(IO):
         with open(path+'/'+self.value,'w') as F:
             for i in self.nest:
                 print >>F,i
+                
+## Makefile
+class Makefile(File):
+    def __init__(self,name='Makefile'):
+        File.__init__(self, name)
+        self.nest = '''
+        
+MODULE = $(notdir $(CURDIR))
+        
+$(MODULE).log: ./$(MODULE).exe
+\t./$< > $@ && tail $(TAIL) $@
+    
+C = $(MODULE).c
+H = $(MODULE).h
+
+./$(MODULE).exe: $(C) $(H)
+\t$(CC) -o $@ $(C)
+    
+'''.split('\n')
+
+## .c file
+class CFile(File):
+    def __init__(self,name):
+        self.module = name
+        File.__init__(self, name+'.c')
+        self.nest = ( '''
+
+#include "%(module)s.h"
+
+int main(){}
+        
+''' % {'module':self.module} ).split('\n')
+
+## .h file
+class HFile(File):
+    def __init__(self,name):
+        self.module = name
+        File.__init__(self, name+'.h')
+        self.nest = ( '''
+        
+#ifndef _H_%(module)s
+#define _H_%(module)s
+
+#endif // _H_%(module)s
+
+''' % {'module':self.module.upper()} ).split('\n')
 
 ## programming language
 class Lang(Meta): pass
@@ -113,10 +128,10 @@ class Project(Meta):
         Meta.__init__(self, name)
         ## project directory
         self.dir = Dir(self.value)
-        self.dir.mk  = File('Makefile')
+        self.dir.mk  = Makefile()
         self.dir.git = File('.gitignore')
-        self.dir.c   = File(self.value+'.c')
-        self.dir.h   = File(self.value+'.h')
+        self.dir.c   = CFile(self.value)
+        self.dir.h   = HFile(self.value)
     ## dump generic project structure
     def dump(self,depth=0):
         S = Meta.dump(self,depth)
