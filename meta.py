@@ -46,13 +46,58 @@ class Dir(IO):
     def gen(self):
         try: os.mkdir(self.value)
         except OSError: pass
+        
+        self.mk.nest = '''
+        
+MODULE = $(notdir $(CURDIR))
+        
+$(MODULE).log: ./$(MODULE).exe
+\t./$< > $@ && tail $(TAIL) $@
+    
+C = $(MODULE).c
+H = $(MODULE).h
+
+./$(MODULE).exe: $(C) $(H)
+\t$(CC) -o $@ $(C)
+    
+'''.split('\n')
         self.mk.gen(self.value)
+        
+        self.git.nest += ['*~','*.swp','','*.o','*.exe','*.log','']
+        self.git.gen(self.value)
+        
+        self.c.nest = ( '''
+
+#include "%(module)s.h"
+
+int main(){}
+        
+''' % {'module':self.value} ).split('\n')
+        self.c.gen(self.value)
+        
+        self.h.nest = ( '''
+        
+#ifndef _H_%(module)s
+#define _H_%(module)s
+
+#endif // _H_%(module)s
+
+''' % {'module':self.value.upper()} ).split('\n')
+        self.h.gen(self.value)
 
 ## file
 class File(IO):
+    ## construct file with given name (w/o path)
+    def __init__(self,name):
+        assert re.match(r'^(\.gitignore|Makefile|[a-z]+\.[ch])$',name)
+        IO.__init__(self, name)
+        ## nested elements will we written into output file (ordered)
+        self.nest = []
     ## produce file
     def gen(self,path):
-        open(path+'/'+self.value,'w').close()
+        with open(path+'/'+self.value,'w') as F:
+            for i in self.nest:
+                print >>F,i
 
 ## programming language
 class Lang(Meta): pass
