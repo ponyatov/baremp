@@ -8,6 +8,8 @@ class Meta:
         self.type  = self.__class__.__name__.lower()
         ## atomic value (implementation language type)
         self.value = V
+        ## ordered nested elements
+        self.nest  = []
         
     ## @name dump objects
     
@@ -26,11 +28,32 @@ class Meta:
         return '\n'+'    '*N
     
     ## generate source code
-    def gen(self):
-        pass
+    def gen(self,parent):
+        return self.dump()
+    
+## container
+class Container(Meta): pass
 
 ## input/output
 class IO(Meta): pass
+
+## plain source code
+class Src(IO):
+    ## return source as is
+    def gen(self,parent):
+        return self.value
+
+## source code block
+class Block(IO):
+    ## create block with optional block comment
+    def __init__(self,info='',init=''):
+        IO.__init__(self, info)
+        for i in init.split('\n'): self.nest.append(i)
+    def gen(self,parent):
+        S = ''
+        if self.value: S += parent.comment(self.value) 
+        S += reduce(lambda a,b: a+b.gen(), self.nest)
+        return S
 
 ## directory
 class Dir(IO):
@@ -43,41 +66,50 @@ class Dir(IO):
         S += self.h.dump(depth+1)
         return S
     ## generate subelements
-    def gen(self):
+    def gen(self,parent):
         try: os.mkdir(self.value)
         except OSError: pass
         
-        self.git.nest += ['*~','*.swp','','*.o','*.exe','*.log','']
-        self.git.gen(self.value)
-        
-        self.mk.gen(self.value)
-        self.c.gen(self.value)
-        self.h.gen(self.value)
+        self.git.gen(self)
+        self.mk.gen(self)
+        self.c.gen(self)
+        self.h.gen(self)
 
 ## file
 class File(IO):
     ## construct file with given name (w/o path)
-    def __init__(self,name):
+    def __init__(self,name,init=''):
         assert re.match(r'^(\.gitignore|Makefile|[a-z]+\.[ch])$',name)
         IO.__init__(self, name)
         ## nested elements will we written into output file (ordered)
-        self.nest = []
+        if isinstance(init,str):
+            for i in init.split('\n'):
+                self.nest.append(Src(i))
+        if isinstance(init, list):
+            self.nest = init
     ## produce file
-    def gen(self,path):
-        with open(path+'/'+self.value,'w') as F:
+    def gen(self,parent):
+        with open(parent.value+'/'+self.value,'w') as F:
             for i in self.nest:
-                print >>F,i
+                print >>F,i.gen(self)
+    ## dump contents
+    def dump(self,depth=0):
+        S = IO.dump(self, depth)
+        for j in self.nest:
+            S += self.pad(depth+1) + j
+        return S
                 
 ## Makefile
 class Makefile(File):
+    def comment(self,text):
+        return '# %s\n'%text
     def __init__(self,name='Makefile'):
-        File.__init__(self, name)
-        self.nest = '''
-        
-MODULE = $(notdir $(CURDIR))
-        
-$(MODULE).log: ./$(MODULE).exe
-\t./$< > $@ && tail $(TAIL) $@
+        File.__init__(self, name, [
+            Block('detect module name from current dir',
+                  init='MODULE = $(notdir $(CURDIR))'),
+            Block('default target is logged batch',
+                  init='$(MODULE).log: ./$(MODULE).exe\n\t./$< > $@ && tail $(TAIL) $@'),
+            Src('''
     
 C = $(MODULE).c
 H = $(MODULE).h
@@ -85,34 +117,22 @@ H = $(MODULE).h
 ./$(MODULE).exe: $(C) $(H)
 \t$(CC) -o $@ $(C)
     
-'''.split('\n')
+''')])
 
 ## .c file
 class CFile(File):
     def __init__(self,name):
         self.module = name
-        File.__init__(self, name+'.c')
-        self.nest = ( '''
-
-#include "%(module)s.h"
-
-int main(){}
-        
-''' % {'module':self.module} ).split('\n')
+        File.__init__(self, name+'.c', \
+            '#include "%s.h"\nint main(){}' % self.module )
 
 ## .h file
 class HFile(File):
     def __init__(self,name):
         self.module = name
-        File.__init__(self, name+'.h')
-        self.nest = ( '''
-        
-#ifndef _H_%(module)s
-#define _H_%(module)s
-
-#endif // _H_%(module)s
-
-''' % {'module':self.module.upper()} ).split('\n')
+        File.__init__(self, name+'.h', \
+            '#ifndef %(s)s\n#define %(s)s\n#endif // %(s)s' % \
+                {'s':'_H_'+self.module.upper()})
 
 ## programming language
 class Lang(Meta): pass
@@ -129,7 +149,7 @@ class Project(Meta):
         ## project directory
         self.dir = Dir(self.value)
         self.dir.mk  = Makefile()
-        self.dir.git = File('.gitignore')
+        self.dir.git = File('.gitignore','*~\n*.swp\n*.o\n*.exe\n*.log')
         self.dir.c   = CFile(self.value)
         self.dir.h   = HFile(self.value)
     ## dump generic project structure
@@ -138,5 +158,5 @@ class Project(Meta):
         S += self.dir.dump(depth+1)
         return S
     ## generate project elements
-    def gen(self):
-        self.dir.gen()
+    def gen(self,parent):
+        self.dir.gen(self)
